@@ -25,6 +25,10 @@ public class PlayerControlAnimations : MonoBehaviour
     private float _animatorInputZ = 0;
     private float _maxRigWeight = 1.0f;
     private float _minRigWeight = 0.0f;
+    private float _speedChangeValue = 10f;
+    private float _timeSetColorCrosshair = 0.2f;
+    private float _runInputAnimatorValue = 2.0f;
+    private int _degreeRounding = 4;
     private bool _isFirstPlay = true;
 
     private void Start()
@@ -37,12 +41,12 @@ public class PlayerControlAnimations : MonoBehaviour
     {
         if (targetSpeed == runSpeed)
         {
-            inputX = 2.0f;
-            inputZ = 2.0f;
+            inputX = _runInputAnimatorValue;
+            inputZ = _runInputAnimatorValue;
         }
 
-        _animatorInputX = (float)Math.Round(Mathf.Lerp(_animatorInputX, inputX, 10f * Time.deltaTime), 4);
-        _animatorInputZ = (float)Math.Round(Mathf.Lerp(_animatorInputZ, inputZ, 10f * Time.deltaTime), 4);
+        _animatorInputX = (float)Math.Round(Mathf.Lerp(_animatorInputX, inputX, _speedChangeValue * Time.deltaTime), _degreeRounding);
+        _animatorInputZ = (float)Math.Round(Mathf.Lerp(_animatorInputZ, inputZ, _speedChangeValue * Time.deltaTime), _degreeRounding);
 
         if (inputX == 0 && Math.Abs(_animatorInputX) < 0.1f)
             _animatorInputX = 0;
@@ -60,14 +64,14 @@ public class PlayerControlAnimations : MonoBehaviour
         {
             _rigPlayerIdle.weight = Mathf.Lerp(_rigPlayerIdle.weight, _maxRigWeight, _speedChandeRig * Time.deltaTime);
             _rigPlayerAim.weight = Mathf.Lerp(_rigPlayerAim.weight, _minRigWeight, _speedChandeRig * Time.deltaTime);
-            _crosshair.DOColor(_crosshairStartColor, 0.2f);
+            _crosshair.DOColor(_crosshairStartColor, _timeSetColorCrosshair);
             PlayAimSound(1, false);
         }
         else
         {
             _rigPlayerIdle.weight = Mathf.Lerp(_rigPlayerIdle.weight, _minRigWeight, _speedChandeRig * Time.deltaTime);
             _rigPlayerAim.weight = Mathf.Lerp(_rigPlayerAim.weight, _maxRigWeight, _speedChandeRig * Time.deltaTime);
-            _crosshair.DOColor(_crosshairEndColor, 0.2f);
+            _crosshair.DOColor(_crosshairEndColor, _timeSetColorCrosshair);
             PlayAimSound(0, true);
         }
     }
