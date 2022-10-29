@@ -14,6 +14,8 @@ public class PlayerControlAnimations : MonoBehaviour
     [SerializeField] private Rig _rigPlayerAim;
     [SerializeField] private float _speedChandeRig;
     [SerializeField] private Image _crosshair;
+    [SerializeField] private Color _crosshairStartColor;
+    [SerializeField] private Color _crosshairEndColor;
     [SerializeField] private bool isAuto;
     [SerializeField] private List<AudioClip> _aimSounds;
 
@@ -58,14 +60,14 @@ public class PlayerControlAnimations : MonoBehaviour
         {
             _rigPlayerIdle.weight = Mathf.Lerp(_rigPlayerIdle.weight, _maxRigWeight, _speedChandeRig * Time.deltaTime);
             _rigPlayerAim.weight = Mathf.Lerp(_rigPlayerAim.weight, _minRigWeight, _speedChandeRig * Time.deltaTime);
-            _crosshair.DOColor(new Color(1.0f, 1.0f, 1.0f, 0.0f), 0.2f);
+            _crosshair.DOColor(_crosshairStartColor, 0.2f);
             PlayAimSound(1, false);
         }
         else
         {
             _rigPlayerIdle.weight = Mathf.Lerp(_rigPlayerIdle.weight, _minRigWeight, _speedChandeRig * Time.deltaTime);
             _rigPlayerAim.weight = Mathf.Lerp(_rigPlayerAim.weight, _maxRigWeight, _speedChandeRig * Time.deltaTime);
-            _crosshair.DOColor(new Color(1.0f, 1.0f, 1.0f, 1.0f), 0.2f);
+            _crosshair.DOColor(_crosshairEndColor, 0.2f);
             PlayAimSound(0, true);
         }
     }
