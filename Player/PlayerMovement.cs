@@ -15,8 +15,12 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController _controller;
     private Vector2 _inputDirection;
     private Vector3 _normalozedDirection;
-    private float _inputAngle;
     private float _speed;
+    private float _inputAngle;
+    private float _forwardDiagonalValueAngle = 45.0f;
+    private float _backDiagonalValueAngle = 135.0f;
+    private float _turnValueAngle = 180.0f;
+    private float _lockAxisValue = 0.0f;
 
     private void Awake()
     {
@@ -36,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     public void SetDirection(InputAction.CallbackContext context)
     {
         _inputDirection = context.ReadValue<Vector2>();
-        _normalozedDirection = new Vector3(_inputDirection.x, 0.0f, _inputDirection.y).normalized;
+        _normalozedDirection = new Vector3(_inputDirection.x, _lockAxisValue, _inputDirection.y).normalized;
     }
 
     private void Move()
@@ -47,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _inputAngle = Mathf.Atan2(_normalozedDirection.x, _normalozedDirection.z) * Mathf.Rad2Deg;
             float moveAngle = _inputAngle + _playerLook.MainCamera.eulerAngles.y;
-            Vector3 moveDirection = Quaternion.Euler(0.0f, moveAngle, 0.0f) * Vector3.forward;
+            Vector3 moveDirection = Quaternion.Euler(_lockAxisValue, moveAngle, _lockAxisValue) * Vector3.forward;
             _controller.Move(moveDirection.normalized * _speed * Time.deltaTime);
             _playerRotation.Rotate(DampeAngle(_inputAngle) + _playerLook.MainCamera.eulerAngles.y);
         }
@@ -62,14 +66,14 @@ public class PlayerMovement : MonoBehaviour
     {
         float dampeAngle = angle;
         
-        if (angle < -45f || angle > 45f)
+        if (angle < -_forwardDiagonalValueAngle || angle > _forwardDiagonalValueAngle)
             dampeAngle = 0f;
 
-        if (angle == -135f)
-            dampeAngle = angle + 180f;
+        if (angle == -_backDiagonalValueAngle)
+            dampeAngle = angle + _turnValueAngle;
 
-        if(angle == 135f)
-            dampeAngle = angle - 180f;
+        if(angle == _backDiagonalValueAngle)
+            dampeAngle = angle - _turnValueAngle;
 
         return dampeAngle;
     } 
