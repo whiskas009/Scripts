@@ -1,6 +1,3 @@
 using UnityEngine;
 
-public class WeaponReloadAnimator : MonoBehaviour
-{
-    
-}
+public class WeaponReloadAnimator : MonoBehaviour {}

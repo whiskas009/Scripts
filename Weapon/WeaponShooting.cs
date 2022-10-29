@@ -51,7 +51,7 @@ public class WeaponShooting : MonoBehaviour
             {
                 _currentShootTime = _shootDelay;
 
-                if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out _hit, 999f, _layerRaycast))
+                if (Physics.Raycast(_shootPoint.position, _shootPoint.forward, out _hit, Mathf.Infinity, _layerRaycast))
                 {
                     _controlEffects.PlayEffects();
                     _weaponReload.ReduceAmmo();
