@@ -1,6 +1,3 @@
 using UnityEngine;
 
-public class WeaponRecoilRigging : MonoBehaviour
-{
-    
-}
+public class WeaponRecoilRigging : MonoBehaviour {}

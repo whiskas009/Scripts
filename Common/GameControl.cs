@@ -7,6 +7,9 @@ public class GameControl : MonoBehaviour
     [SerializeField] private CinemachineBrain _cinemachineBrain;
     [SerializeField] private PlayerInput _playerInput;
 
+    private float _maxTimeScale = 1.0f;
+    private float _minTimeScale = 0.0f;
+
     public void SetActiveGameControl(bool isChangeStateCursor = true, bool isChangePlayerControl = true, bool isChangeGameTime = true)
     {
         SetActivePlayerControl(isChangePlayerControl);
@@ -18,10 +21,10 @@ public class GameControl : MonoBehaviour
     {
         if (isChangeGameTime)
         {
-            if (Time.timeScale == 1)
-                Time.timeScale = 0;
+            if (Time.timeScale == _maxTimeScale)
+                Time.timeScale = _minTimeScale;
             else
-                Time.timeScale = 1;
+                Time.timeScale = _maxTimeScale;
         }
     }
 

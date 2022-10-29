@@ -1,6 +1,3 @@
 using UnityEngine;
 
-public class TakeSound : MonoBehaviour
-{
-    
-}
+public class TakeSound : MonoBehaviour {}
