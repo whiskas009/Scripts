@@ -1,6 +1,3 @@
 using UnityEngine;
 
-public class BodyRecoilRigging : MonoBehaviour
-{
-    
-}
+public class BodyRecoilRigging : MonoBehaviour {}
