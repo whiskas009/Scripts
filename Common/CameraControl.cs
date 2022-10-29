@@ -1,7 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 
-[RequireComponent(typeof(Cinemachine.CinemachineFreeLook))]
+[RequireComponent(typeof(CinemachineFreeLook))]
 public class CameraControl : MonoBehaviour
 {
     [SerializeField] private float _aimFOV;
@@ -10,11 +10,12 @@ public class CameraControl : MonoBehaviour
     [SerializeField] private float _idleFOV;
     [SerializeField] private float _speedFovChange;
 
-    private Cinemachine.CinemachineFreeLook _cinemachineCamera;
+    private CinemachineFreeLook _cinemachineCamera;
+    private float _maxValueSensitivity = 1.0f;
 
     private void Start()
     {
-        _cinemachineCamera = GetComponent<Cinemachine.CinemachineFreeLook>();
+        _cinemachineCamera = GetComponent<CinemachineFreeLook>();
     }
 
     public void SetCameraValue(bool isAim = false)
@@ -36,8 +37,8 @@ public class CameraControl : MonoBehaviour
     public void ChangeSensitivity(float value, bool isAim = false)
     {
         if (isAim)
-            _aimAxisSensitivity = 1 - value;
+            _aimAxisSensitivity = _maxValueSensitivity - value;
         else
-            _idleAxisSensitivity = 1 - value;
+            _idleAxisSensitivity = _maxValueSensitivity - value;
     }
 }
