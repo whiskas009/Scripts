@@ -30,7 +30,7 @@ public class PlayerWalkSounds : MonoBehaviour
 
     private AudioClip GetRandomClip(List <AudioClip> sounds)
     {
-        int index = Random.Range(0, sounds.Count - 1);
+        int index = Random.Range(0, sounds.Count);
         return sounds[index];
     }
 }
