@@ -9,11 +9,13 @@ public class PlayerIncreaseSpeed : MonoBehaviour
 
     public float CurrentSpeed { get; private set; }
     public float TargetSpeed { get; private set; }
-    public float RunSpeed => _runSpeed; 
+    public float RunSpeed => _runSpeed;
 
-    private bool _isRunButtonPressed;
-    private Vector3 _direction;
     private PlayerLook _playerLook;
+    private Vector3 _direction;
+    private bool _isRunButtonPressed;
+    private float _minSpeedValue = 0.0f;
+
 
     private void Awake()
     {
@@ -42,7 +44,7 @@ public class PlayerIncreaseSpeed : MonoBehaviour
         CurrentSpeed = Mathf.Lerp(CurrentSpeed, TargetSpeed, _accelerationSpeed * Time.deltaTime);
 
         if (CurrentSpeed < 0.01f)
-            CurrentSpeed = 0;
+            CurrentSpeed = _minSpeedValue;
     }
 
     private void SetTargetSpeed()
@@ -53,6 +55,6 @@ public class PlayerIncreaseSpeed : MonoBehaviour
             TargetSpeed = _walkSpeed;
 
         if (_direction.magnitude < 0.1f)
-            TargetSpeed = 0f;
+            TargetSpeed = _minSpeedValue;
     }
 }
