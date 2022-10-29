@@ -17,6 +17,7 @@ public class WeaponRecoil : MonoBehaviour
     private Camera _mainCanera;
     private float _currentTime;
     private float _cameraOffsetX = 0;
+    private float _maxRigWeight = 1.0f;
 
     private void Start()
     {
@@ -54,9 +55,9 @@ public class WeaponRecoil : MonoBehaviour
         float _targetWeight = 0.0f;
 
         if (isUpWeight)
-            _targetWeight = 1.0f;
+            _targetWeight = _maxRigWeight;
         
-        _weaponRecoil.weight = Mathf.Lerp(_weaponRecoil.weight, _targetWeight, (1.0f / _timeCameraOffset) * Time.deltaTime);
-        _bodyRecoil.weight = Mathf.Lerp(_weaponRecoil.weight, _targetWeight, (1.0f / _timeCameraOffset) * Time.deltaTime);
+        _weaponRecoil.weight = Mathf.Lerp(_weaponRecoil.weight, _targetWeight, (_maxRigWeight / _timeCameraOffset) * Time.deltaTime);
+        _bodyRecoil.weight = Mathf.Lerp(_weaponRecoil.weight, _targetWeight, (_maxRigWeight / _timeCameraOffset) * Time.deltaTime);
     }
 }
