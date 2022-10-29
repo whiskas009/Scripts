@@ -19,6 +19,9 @@ public class WeaponReload : MonoBehaviour
     private WaitForFixedUpdate _waitTime;
     private WeaponShooting _weaponShooting;
     private bool _isCoroutineWeaponReloadWork = false;
+    private int _indexIdleLayerAnimator = 1;
+    private float _maxLayerAnimatorWeight = 1.0f;
+    private float _minLayerAnimatorWeight = 0.0f;
 
     private void Start()
     {
@@ -91,9 +94,9 @@ public class WeaponReload : MonoBehaviour
     private void SetReloadAnimation()
     {
         if (_weaponShooting.IsAim)
-            _reloadAnimator.SetLayerWeight(1, 1);
+            _reloadAnimator.SetLayerWeight(_indexIdleLayerAnimator, _maxLayerAnimatorWeight);
         else
-            _reloadAnimator.SetLayerWeight(1, 0);
+            _reloadAnimator.SetLayerWeight(_indexIdleLayerAnimator, _minLayerAnimatorWeight);
     }
 
     private void PlayReloadEffects()
